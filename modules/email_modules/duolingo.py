@@ -1,6 +1,5 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
 
 
@@ -19,14 +18,14 @@ async def duolingo(email):
         r = await Requests(URL, params=params, headers=headers).get()
 
         if """{"users":[]}""" in r.text:
-            return f"""\r❌ {RED}Duolingo{WHITE}\n"""
+            return f"""No Duolingo account"""
 
         else:
-            return f"""\r✔️ {GREEN}Duolingo{WHITE}
+            return f"""Duolingo account detected!
     ├──Name : {r.json()['users'][0]['username']}
     ├──Bio : {r.json()['users'][0]['bio']}
     ├──Total XP : {r.json()['users'][0]['totalXp']}
-    └──From Language : {r.json()['users'][0]['courses'][0]['fromLanguage']}\n"""
+    └──From Language : {r.json()['users'][0]['courses'][0]['fromLanguage']}"""
 
     except Exception:
-        return """\r🚧 Duolingo"""
+        return """🚧 Duolingo"""

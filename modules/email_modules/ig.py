@@ -1,7 +1,6 @@
-from lib.agents import user_agent
-from lib.requests import Requests
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
-from lib.text import *
 
 
 async def instagram(email):
@@ -20,7 +19,7 @@ async def instagram(email):
                 users = data.get('users', [])
 
                 if not users:
-                    print(f"\r❌ {RED}Instagram{WHITE}\n")
+                    return f"No Instagram account"
                 else:
                     user_info = users[0].get('user', {})
 
@@ -28,14 +27,14 @@ async def instagram(email):
                     profile_pic_url = user_info.get('profile_pic_url', '')
 
                     if username and profile_pic_url:
-                        print(f"""\r✔️ {GREEN}Instagram{WHITE}
-    ├──Username: {username}
-    └──Profile Picture: {profile_pic_url}\n""")
+                        return f"""Instagram account detected!
+    - Username: {username}
+    - Profile Picture: {profile_pic_url}"""
                     else:
-                        print(f"\r❌ {RED}Instagram{WHITE}\n")
+                        return f"No Instagram account"
 
             except Exception:
-                print(f"\r❌ {RED}Instagram{WHITE}\n")
+                return f"No Instagram account"
 
     except Exception:
-        print("\r🚧 Instagram\n")
+        return "🚧 Instagram"

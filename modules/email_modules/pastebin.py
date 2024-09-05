@@ -2,7 +2,7 @@
 original code => https://github.com/KanekiWeb/Email-Osint/blob/main/modules/PastebinDump.py
 """
 from ScrapeSearchEngine.SearchEngine import Google
-from lib.requests import Requests
+from Eyes.lib.requests import Requests
 
 
 async def pastebin(email: str) -> list:

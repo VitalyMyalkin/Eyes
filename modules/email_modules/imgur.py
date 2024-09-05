@@ -1,6 +1,5 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
 
 
@@ -19,10 +18,10 @@ async def imgur(email):
         r = await Requests(URL, headers, data).post()
 
         if """{"data":{"available":false},"success":true,"status":200""" in r.text:
-            return f"""\r✔️ {GREEN}Imgur{WHITE}\n"""
+            return f"""Imgur account detected!"""
 
         else:
-            return f"""\r{RED}❌ Imgur{WHITE}\n"""
+            return f"""No Imgur account"""
 
     except Exception:
-        return """\r🚧 Imgur\n"""
+        return """🚧 Imgur"""

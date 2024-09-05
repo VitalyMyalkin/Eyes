@@ -1,6 +1,5 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
 import json
 
@@ -18,10 +17,10 @@ async def x(email):
         read = json.load(r)
 
         if read['taken'] == True:
-            return f"""\r✔️ {GREEN}X (Twitter){WHITE}\n"""
+            return f"""X (Twitter) account detected!"""
 
         else:
-            return f"""\r❌ {RED}X (Twitter){WHITE}\n"""
+            return f"""No X (Twitter) account"""
 
     except Exception:
-        return """\r🚧 X (Twitter)\n"""
+        return """🚧 X (Twitter)"""

@@ -1,6 +1,5 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
 import re
 from datetime import datetime
@@ -17,7 +16,7 @@ async def protonmail(email):
         r = await Requests(URL.format(email), headers=headers).get()
 
         if "info:1:0" in r.text:
-            return f"\r❌ {RED}ProtonMail{WHITE}\n"
+            return f"No ProtonMail account"
 
         elif "info:1:1" in r.text:
             pat1 = "2048:(.*)::"
@@ -31,13 +30,13 @@ async def protonmail(email):
                 if timestamp:
                     dtimeobject = datetime.fromtimestamp(
                         int(timestamp.group(1)))
-                    return f"""\r✔️ {GREEN}ProtonMail{WHITE}
-    └──Date of creation : {dtimeobject} 🌐 (UTC) \n"""
+                    return f"""ProtonMail account detected!
+    └──Date of creation : {dtimeobject} 🌐 (UTC)"""
                 else:
                     continue
 
         else:
-            return f"\r❌ {RED}ProtonMail{WHITE}\n"
+            return f"No ProtonMail account"
 
     except Exception:
-        return "\r🚧 ProtonMail\n"
+        return "🚧 ProtonMail"

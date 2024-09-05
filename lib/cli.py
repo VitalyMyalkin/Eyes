@@ -1,6 +1,6 @@
 import argparse
 from .banner import *
-from output import eyes_output
+from Eyes.output import eyes_output
 from .check_version import check_python_version
 
 

@@ -1,6 +1,6 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
+
 import random
 
 
@@ -16,12 +16,12 @@ async def mailru(email):
 
         try:
             if r.json()['body']['exists'] == True:
-                return f"✔️ {GREEN}Mail.ru{WHITE}\n"
+                return f"Mail.ru account detected"
 
             else:
-                return f"""❌ {RED}Mail.ru{WHITE}\n"""
+                return f"No Mail.ru account"
         except:
-            return f"{RED}❌ Mail.ru{WHITE}\n"
+            return f"No Mail.ru account"
 
     except Exception:
-        return """\r🚧 Mail.ru\n"""
+        return """🚧 Mail.ru"""

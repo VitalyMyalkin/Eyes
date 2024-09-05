@@ -1,9 +1,9 @@
-from lib.agents import user_agent
-from lib.requests import Requests
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
 import random
-from lib.text import *
-from lib import venom
-from lib.image import get_hashed, fetch_img
+
+from Eyes.lib import venom
+from Eyes.lib.image import get_hashed, fetch_img
 
 
 async def github(email):
@@ -18,7 +18,7 @@ async def github(email):
         r = await Requests(URL.format(email), headers).get()
 
         if '"total_count": 0' in r.text:
-            print(f"""\r❌ {RED}GitHub{WHITE}\n""")
+            return f"""No GitHub account"""
 
         else:
             try:
@@ -38,20 +38,21 @@ async def github(email):
                 deufault_hashed = get_hashed(default_img)
 
                 if img_hashed == deufault_hashed:
-                    print(f"""\r✔️ {GREEN}GitHub{WHITE}
-    ├──Name : {name}
-    └──Avatar : {avatar}
-       └──✖️ Default profile picture\n""")
+                    return f"""GitHub account detected!
+    - Name : {name}
+    - Avatar : {avatar}
+    - Default profile picture"""
 
                 else:
-                    print(f"""\r✔️ {GREEN}GitHub{WHITE}
-    ├──Name : {name}
-    └──Avatar : {avatar}
-       └──🤳 No default profile picture\n""")
+                    await venom.Face.facial(url=avatar, name=name,
+                                            output_path=f"facial_recognition/venom_output_{name}.jpg")
 
-                    await venom.Face.facial(url=avatar, name=name, output_path=f"facial_recognition/venom_output_{name}.jpg")
+                    return f"""GitHub account detected!
+    ─ Name : {name}
+    ─ Avatar : {avatar}
+    ─🤳 No default profile picture"""
 
             except Exception:
-                print(f"""\r❌ {RED}GitHub{WHITE}\n""")
+                return f"""No GitHub account"""
     except Exception:
-        print("\r🚧 GitHub\n")
+        return "🚧 GitHub"

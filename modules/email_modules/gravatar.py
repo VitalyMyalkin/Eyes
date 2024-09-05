@@ -1,6 +1,6 @@
-from lib.agents import user_agent
-from lib.requests import Requests
-from lib.text import *
+from Eyes.lib.agents import user_agent
+from Eyes.lib.requests import Requests
+
 import random
 
 
@@ -15,16 +15,16 @@ async def gravatar(email):
         r = await Requests(URL.format(email), headers).get()
 
         if "User not found" in r.text:
-            return f"""\r❌ {RED}Gravatar{WHITE}\n"""
+            return f"""No Gravatar account"""
 
         else:
             if r.json()['entry'][0]['displayName'] != None or '':
-                return f"""\r{GREEN}✔️ Gravatar{WHITE}
+                return f""" Gravatar account detected!
     └──Name : {r.json()['entry'][0]['displayName']}
                     """
 
             else:
-                return f"""\r{GREEN}✔️ Gravatar{WHITE}\n"""
+                return f"""Gravatar account detected, but no name displayed!"""
 
     except Exception:
-        return """\r🚧 Gravatar\n"""
+        return """🚧 Gravatar"""

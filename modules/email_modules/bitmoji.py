@@ -1,7 +1,7 @@
 import random
-from lib.requests import Requests
-from lib.agents import user_agent
-from lib.text import *
+from Eyes.lib.requests import Requests
+from Eyes.lib.agents import user_agent
+
 
 
 async def bitmoji(email):
@@ -19,10 +19,10 @@ async def bitmoji(email):
         r = await Requests(URL, headers=headers, data=data).post()
 
         if '{"account_type":"snapchat"}' in r.text:
-            return f"""\r✔️ {GREEN}Bitmoji{WHITE}\n"""
+            return f"""Bitmoji account detected!"""
 
         else:
-            return f"""\r❌ {RED}Bitmoji{WHITE}\n"""
+            return f"""No Bitmoji account"""
 
     except Exception:
-        return """\r🚧 Bitmoji\n"""
+        return """🚧 Bitmoji"""
